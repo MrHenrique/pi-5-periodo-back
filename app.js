@@ -42,16 +42,16 @@ app.patch('/banco/:usuario', async (req, res) => {
 })
 
 //pessoa
-app.patch('/banco/pessoa/:usuario', async (req, res) => {
-    console.log(req.body);
-    await db.inserirbancoPessoa(req.params.usuario, req.body);
-    res.sendStatus(201);
-})
-app.patch('/banco/pessoa/atualizar/:usuario', async (req, res) => {
-    console.log(req.body);
-    await db.inserirbancoPessoa(req.params.usuario, req.body);
-    res.sendStatus(201);
-})
+// app.patch('/banco/pessoa/:usuario', async (req, res) => {
+//     console.log(req.body);
+//     await db.inserirbancoPessoa(req.params.usuario, req.body);
+//     res.sendStatus(201);
+// })
+// app.patch('/banco/pessoa/atualizar/:usuario', async (req, res) => {
+//     console.log(req.body);
+//     await db.inserirbancoPessoa(req.params.usuario, req.body);
+//     res.sendStatus(201);
+// })
 
 //localizacaofazenda
 app.patch('/banco/localizacaofazenda/:idlocalizacaofazenda', async (req, res) => {

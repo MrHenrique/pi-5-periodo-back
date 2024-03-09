@@ -125,8 +125,8 @@ module.exports = {
     atualizarbanco,
     inserirbancoPessoa,
     atualizarbancoPessoa,
-    procurarPessoa,
-    procurarPessoas,
+    // procurarPessoa,
+    // procurarPessoas,
     inserirbancoLocalizacaoFazenda,
     atualizarbancolocalizacaofazenda,
     inserirbancoFazenda
