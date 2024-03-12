@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "swagger": "node swagger.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,10 +21,12 @@
     "msnodesqlv8": "^4.1.2",
     "mssql": "^10.0.2",
     "pg": "^8.11.3",
-    "readable-stream": "^4.5.2"
+    "readable-stream": "^4.5.2",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "swagger-autogen": "^2.23.7"
   }
 }

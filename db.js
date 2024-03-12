@@ -1,119 +1,76 @@
+const sql = require('mssql');
+
 async function connect() {
     if (global.connection)
-        return global.connection.connect();
+        return global.connection;
 
-    const { Pool } = require('pg');
-    const pool = new Pool({
-        connectionString: process.env.CONNECTION_STRING
-    });
-
-    const client = await pool.connect();
-    console.log("Criou pool de conexões no PostgreSQL!");
-    const res = await client.query('SELECT NOW()');
-    console.log(res.rows[0]);
-    client.release();
-    global.connection = pool;
-    return pool.connect();
+    try {
+        await sql.connect(process.env.CONNECTION_STRING);
+        console.log("Connected to SQL Server!");
+        global.connection = sql;
+        return global.connection;
+    } catch (error) {
+        console.error("Error connecting to SQL Server:", error.message);
+        throw error;
+    }
 }
 
-connect();
-
-
-//PESQUISAR LOGIN
+// PESQUISAR LOGIN
 async function selectCustomers() {
-    const client = await connect();
-    const res = await client.query('select * from Login');
-    return res.rows;
+    try {
+        const pool = await connect();
+        const result = await pool.query`select * from Login`;
+        return result.recordset;
+    } catch (error) {
+        console.error("Error selecting customers:", error.message);
+        throw error;
+    }
 }
+
 async function selectCustomer(usuario) {
-    const client = await connect();
-    const res = await client.query('SELECT * FROM login WHERE usuario=$1', [usuario]);
-    await client.query('')
-    return res.rows;
+    try {
+        const pool = await connect();
+        const result = await pool.query`SELECT * FROM login WHERE usuario = ${usuario}`;
+        return result.recordset;
+    } catch (error) {
+        console.error("Error selecting customer:", error.message);
+        throw error;
+    }
 }
 
-// //PESQUISAR PESSOA
-// async function procurarPessoas() {
-//     const client = await connect();
-//     const res = await client.query('select * from pessoa');
-//     return res.rows;
-// }
-// async function procurarPessoa(idpessoa) {
-//     const client = await connect();
-//     const res = await client.query('SELECT * FROM pessoa WHERE idpessoa=$1', [idpessoa]);
-//     await client.query('')
-//     return res.rows;
-// }
-
-
-
-//EXCLUIR
+// EXCLUIR
 async function excluirbanco(usuario) {
-    const client = await connect();
-    return await client.query('DELETE FROM login where usuario=$1;', [usuario]);
+    try {
+        const pool = await connect();
+        return await pool.query`DELETE FROM login where usuario = ${usuario}`;
+    } catch (error) {
+        console.error("Error deleting customer:", error.message);
+        throw error;
+    }
 }
 
-
-//ADICIONAR LOGIN
+// ADICIONAR LOGIN
 async function inserirbanco(customer) {
-    const client = await connect();
-    const sql = 'INSERT INTO login (email,senha_hash) VALUES ($1,$2);';
-    const values = [customer.email, customer.senha_hash];
-    return await client.query(sql, values);
+    try {
+        const pool = await connect();
+        const result = await pool.query`INSERT INTO login (email, senha_hash) VALUES (${customer.email}, ${customer.senha_hash})`;
+        return result;
+    } catch (error) {
+        console.error("Error inserting customer:", error.message);
+        throw error;
+    }
 }
-//ATUALIZAR LOGIN
+
+// ATUALIZAR LOGIN
 async function atualizarbanco(usuario, customer) {
-    const client = await connect();
-    const sql = 'UPDATE login SET email = $1, senha_hash = $2 WHERE usuario = $3';
-    const values = [customer.email, customer.senha_hash, usuario];
-    return await client.query(sql, values);
-}
-
-
-//ADICIONAR PESSOA
-async function inserirbancoPessoa(usuario, customer) {
-    const client = await connect();
-    const sql = 'INSERT INTO pessoa (idpessoa, nome, proprietariofazenda) VALUES ($3,$1,$2)';
-    const values = [customer.nome, customer.proprietariofazenda, usuario];
-    return await client.query(sql, values);
-}
-//ATUALIZAR PESSOA
-async function atualizarbancoPessoa(usuario, customer) {
-    const client = await connect();
-    const sql = 'UPDATE pessoa SET nome = $1, proprietariofazenda = $2 WHERE usuario = $3';
-    const values = [customer.nome, customer.proprietariofazenda, usuario];
-    return await client.query(sql, values);
-}
-
-
-//ADICIONAR LOCALIZAÇAOFAZENDA
-async function inserirbancoLocalizacaoFazenda(customer) {
-    const client = await connect();
-    const sql = 'INSERT INTO localizacaoFazenda (longitude, latitude) VALUES ($1,$2)';
-    const values = [customer.nome, customer.proprietariofazenda, idlocalizacaofazenda];
-    return await client.query(sql, values);
-}
-//ATUALIZAR LOCALIZACAOFAZENDA
-async function atualizarbancolocalizacaofazenda(idlocalizacaofazenda, customer) {
-    const client = await connect();
-    const sql = 'UPDATE localizacaofazenda SET longitude = $1, latitude = $2 WHERE idlocalizacaofazenda = $3';
-    const values = [customer.longitude, customer.latitude, idlocalizacaofazenda];
-    return await client.query(sql, values);
-}
-
-//ADICIONAR FAZENDA
-async function inserirbancoFazenda(idlocalizacaofazenda, customer) {
-    const client = await connect();
-    const sql = 'INSERT INTO fazenda (nomefazenda, idlocalizacaofazenda) VALUES ($1,$2)';
-    const values = [customer.nomefazenda, idlocalizacaofazenda];
-    return await client.query(sql, values);
-}
-//ATUALIZAR FAZENDA
-async function inserirbancoFazenda(idfazenda, customer) {
-    const client = await connect();
-    const sql = 'UPDATE fazenda SET nomefazenda = $1 WHERE idfazenda = $3';
-    const values = [customer.nomefazenda, idfazenda];
-    return await client.query(sql, values);
+    try {
+        const pool = await connect();
+        const result = await pool.query`UPDATE login SET email = ${customer.email}, senha_hash = ${customer.senha_hash} WHERE usuario = ${usuario}`;
+        return result;
+    } catch (error) {
+        console.error("Error updating customer:", error.message);
+        throw error;
+    }
 }
 
 
@@ -122,12 +79,5 @@ module.exports = {
     selectCustomer,
     excluirbanco,
     inserirbanco,
-    atualizarbanco,
-    inserirbancoPessoa,
-    atualizarbancoPessoa,
-    // procurarPessoa,
-    // procurarPessoas,
-    inserirbancoLocalizacaoFazenda,
-    atualizarbancolocalizacaofazenda,
-    inserirbancoFazenda
-}
+    atualizarbanco
+};

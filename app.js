@@ -1,9 +1,13 @@
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output.json');
 require("dotenv").config();
 const db = require("./db");
 const express = require('express'); 
 const app = express();
 app.use(express.json());
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.get('/', (req, res) => res.json({ message: 'Conexão Realizada' }));
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 
 //GET
@@ -90,4 +94,4 @@ app.delete('/banco/:usuario', async (req, res) =>{
 
 
 // PORTA DE ENTRADA BANCO
-app.listen(3000);
+app.listen(1433);
