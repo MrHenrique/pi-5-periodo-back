@@ -7,11 +7,21 @@
   },
   "servers": [
     {
-      "url": "pi-5-periodo.azurewebsites.net"
+      "url": "https://pi-5-periodo.azurewebsites.net/"
     }
   ],
   "paths": {
     "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/teste": {
       "get": {
         "description": "",
         "responses": {

@@ -11,10 +11,12 @@ app.get('/', (req, res) => res.json({ message: 'Conexão Realizada' }));
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 
+
 //GET
 //login
 app.get('/banco', async (req, res) => { 
     const customers = await db.selectCustomers();
+    console.log(customers)
     res.json(customers);
 })
 app.get('/banco/:usuario', async (req, res) => { 

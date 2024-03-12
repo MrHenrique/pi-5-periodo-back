@@ -20,6 +20,7 @@ async function selectCustomers() {
     try {
         const pool = await connect();
         const result = await pool.query`select * from Login`;
+        console.log(result.recordset);
         return result.recordset;
     } catch (error) {
         console.error("Error selecting customers:", error.message);
