@@ -4,6 +4,7 @@ require("dotenv").config();
 const db = require("./db");
 const express = require('express'); 
 const app = express();
+const port = process.env.PORT || 3000
 app.use(express.json());
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.get('/', (req, res) => res.json({ message: 'Conexão Realizada' }));
@@ -94,4 +95,4 @@ app.delete('/banco/:usuario', async (req, res) =>{
 
 
 // PORTA DE ENTRADA BANCO
-app.listen(1433);
+app.listen(port);
