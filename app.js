@@ -10,7 +10,7 @@ require("./src/database");
 const app = express();
 
 app.use(express.json());
-app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(routes);
 
