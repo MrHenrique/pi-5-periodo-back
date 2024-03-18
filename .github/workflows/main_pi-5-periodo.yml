@@ -23,8 +23,7 @@ jobs:
 
       - name: Install dependencies and build
         run: |
-          yarn install --frozen-lockfile
-          yarn build --if-present
+          yarn install --frozen-lockfile
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
