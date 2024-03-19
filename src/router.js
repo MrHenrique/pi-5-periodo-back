@@ -4,6 +4,7 @@ const FazendaController = require("./controllers/FazendaController");
 const AreaController = require("./controllers/AreaController");
 const LocalizacaoFazendaController = require("./controllers/LocalizacaoFazendaController");
 const LocalizacaoAreaController = require("./controllers/LocalizacaoAreaController");
+const TipoSensorController = require("./controllers/TipoSensorController");
 
 const routes = express.Router();
 
@@ -59,5 +60,12 @@ routes.delete(
     "/localizacaoArea/:idLocalizacaoArea",
     LocalizacaoAreaController.delete,
 );
+
+//rotas TipoSensor
+routes.get("/tipoSensor", TipoSensorController.showAll);
+routes.get("/tipoSensor/:numSensor", TipoSensorController.show);
+routes.post("/tipoSensor", TipoSensorController.create);
+routes.patch("/tipoSensor/:numSensor", TipoSensorController.update);
+routes.delete("/tipoSensor/:numSensor", TipoSensorController.delete);
 
 module.exports = routes;

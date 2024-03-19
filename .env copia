@@ -2,4 +2,4 @@ DB_DIALECT=mssql
 DB_HOST=pi-5-periodo-server.database.windows.net
 DB_USER=pi-5-periodo-server-admin
 DB_PASSWORD=PasswordDb0
-DB_DATABASE=pi-5-periodo-db
+DB_DATABASE=pi-5-periodo-database-teste-lucas
