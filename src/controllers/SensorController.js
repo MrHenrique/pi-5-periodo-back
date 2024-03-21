@@ -114,4 +114,19 @@ module.exports = {
             return res.status(500).json({ error: error.message });
         }
     },
+    
+    //Excluir todos sensores
+    async delete(req, res) {
+        // #swagger.tags = ["Sensor"]
+        // #swagger.summary = "Excluir todos Sensores"
+        try {
+            await Sensor.destroy();
+
+            return res.status(200).json({
+                message: "Sensor excluído com sucesso.",
+            });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
 };

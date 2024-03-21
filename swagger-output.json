@@ -824,6 +824,431 @@
           }
         }
       }
+    },
+    "/tipoSensor": {
+      "get": {
+        "tags": [
+          "TipoSensor"
+        ],
+        "summary": "Mostrar todas os Tipos de Sensores",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "TipoSensor"
+        ],
+        "summary": "Criar um novo Tipo Sensor",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nomeTipoSensor": {
+                    "example": "any"
+                  },
+                  "obs": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tipoSensor/{numSensor}": {
+      "get": {
+        "tags": [
+          "TipoSensor"
+        ],
+        "summary": "Mostrar um Tipo Sensor pelo seu numero",
+        "description": "",
+        "parameters": [
+          {
+            "name": "numSensor",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "TipoSensor"
+        ],
+        "summary": "Alterar um TipoSensor pelo Numero",
+        "description": "",
+        "parameters": [
+          {
+            "name": "numSensor",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nomeTipoSensor": {
+                    "example": "any"
+                  },
+                  "obs": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "TipoSensor"
+        ],
+        "summary": "Excluir um TipoSensor pelo Numero",
+        "description": "",
+        "parameters": [
+          {
+            "name": "numSensor",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/sensor": {
+      "get": {
+        "tags": [
+          "Sensor"
+        ],
+        "summary": "Mostrar todos os sensores",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Sensor"
+        ],
+        "summary": "Criar um novo sensor",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "numSensor": {
+                    "example": "any"
+                  },
+                  "idArea": {
+                    "example": "any"
+                  },
+                  "idFazenda": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Sensor"
+        ],
+        "summary": "Excluir um sensor pelo id",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/sensor/{idSensor}": {
+      "get": {
+        "tags": [
+          "Sensor"
+        ],
+        "summary": "Mostrar sensores pelo id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idSensor",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Sensor"
+        ],
+        "summary": "Alterar um sensor pelo id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idSensor",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "numSensor": {
+                    "example": "any"
+                  },
+                  "idArea": {
+                    "example": "any"
+                  },
+                  "idFazenda": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Sensor"
+        ],
+        "summary": "Excluir um sensor pelo id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idSensor",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/dadosJson": {
+      "get": {
+        "tags": [
+          "DadosJson"
+        ],
+        "summary": "Mostrar todos os dados",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "DadosJson"
+        ],
+        "summary": "Criar um novo dadoJson",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "idSensor": {
+                    "example": "any"
+                  },
+                  "valorDados": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "DadosJson"
+        ],
+        "summary": "Excluir um dadoJson pelo id",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/dadosJson/{idDadosJson}": {
+      "delete": {
+        "tags": [
+          "DadosJson"
+        ],
+        "summary": "Excluir um dadoJson pelo id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "idDadosJson",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }

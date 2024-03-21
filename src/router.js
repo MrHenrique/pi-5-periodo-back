@@ -5,6 +5,8 @@ const AreaController = require("./controllers/AreaController");
 const LocalizacaoFazendaController = require("./controllers/LocalizacaoFazendaController");
 const LocalizacaoAreaController = require("./controllers/LocalizacaoAreaController");
 const TipoSensorController = require("./controllers/TipoSensorController");
+const SensorController = require("./controllers/SensorController");
+const DadosJsonController = require("./controllers/DadosJsonController");
 
 const routes = express.Router();
 
@@ -67,5 +69,19 @@ routes.get("/tipoSensor/:numSensor", TipoSensorController.show);
 routes.post("/tipoSensor", TipoSensorController.create);
 routes.patch("/tipoSensor/:numSensor", TipoSensorController.update);
 routes.delete("/tipoSensor/:numSensor", TipoSensorController.delete);
+
+//rotas Sensor
+routes.get("/sensor", SensorController.showAll);
+routes.get("/sensor/:idSensor", SensorController.show);
+routes.post("/sensor", SensorController.create);
+routes.patch("/sensor/:idSensor", SensorController.update);
+routes.delete("/sensor/:idSensor", SensorController.delete);
+routes.delete("/sensor", SensorController.delete);
+
+//rotas DadosJson
+routes.get("/dadosJson", DadosJsonController.showAll);
+routes.post("/dadosJson", DadosJsonController.create);
+routes.delete("/dadosJson/:idDadosJson", DadosJsonController.delete);
+routes.delete("/dadosJson", DadosJsonController.delete);
 
 module.exports = routes;
