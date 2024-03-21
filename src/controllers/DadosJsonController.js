@@ -1,4 +1,3 @@
-const { STRING } = require("sequelize");
 const DadosJson = require("../models/DadosJson");
 
 module.exports = {
@@ -53,6 +52,22 @@ module.exports = {
 
             return res.status(200).json({
                 message: "Dado excluído com sucesso.",
+            });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    },
+
+    //Excluir Tudo
+    async delete(req, res) {
+        // #swagger.tags = ["DadosJson"]
+        // #swagger.summary = "Excluir Tudo"
+        try {
+
+            await DadosJson.destroy();
+
+            return res.status(200).json({
+                message: "Tudo Excluirdo com sucesso.",
             });
         } catch (error) {
             return res.status(500).json({ error: error.message });
