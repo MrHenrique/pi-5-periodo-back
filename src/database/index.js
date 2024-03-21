@@ -8,9 +8,11 @@ const LocalizacaoFazenda = require("../models/LocalizacaoFazenda");
 const LocalizacaoArea = require("../models/LocalizacaoArea");
 const TipoSensor = require("../models/TipoSensor");
 const Sensor = require("../models/Sensor");
+const DadosJson = require("../models/DadosJson");
 
 const connection = new Sequelize(dbConfig);
 
+DadosJson.init(connection);
 Login.init(connection);
 Fazenda.init(connection);
 Area.init(connection);

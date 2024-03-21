@@ -1,5 +1,3 @@
-const TipoSensor = require("../models/TipoSensor");
-const Area = require("../models/Area");
 const Sensor = require("../models/Sensor");
 
 module.exports = {
@@ -9,7 +7,7 @@ module.exports = {
         // #swagger.summary = "Mostrar todos os sensores"
         try {
             const sensores = await Sensor.findAll();
-            return res.status(200).json(areas);
+            return res.status(200).json(sensores);
         } catch (error) {
             return res.status(500).json({ error: error.message });
         }
@@ -27,7 +25,7 @@ module.exports = {
                 return res.status(404).json({ error: "Sensor não encontrada." });
             }
 
-            return res.status(200).json(area);
+            return res.status(200).json(sensor);
         } catch (error) {
             return res.status(500).json({ error: error.message });
         }
