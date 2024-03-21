@@ -13,7 +13,7 @@ module.exports = {
         }
     },
 
-    //Mostrar um Sensor pelo seu numero
+    //Mostrar um TipoSensor pelo seu numero
     async show(req, res) {
         // #swagger.tags = ['TipoSensor']
         // #swagger.summary = "Mostrar um Tipo Sensor pelo seu numero"
