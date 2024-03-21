@@ -1,3 +1,4 @@
+const { STRING } = require("sequelize");
 const DadosJson = require("../models/DadosJson");
 
 module.exports = {
@@ -8,23 +9,9 @@ module.exports = {
         try {
             const dadosJson = await DadosJson.aggregate('valorDados', 'average', {where: 
             {}});
-            const { count, rows } = await DadosJson.findAndCountAll({
-                where: {
-                  title: {
-                    [Op.like]: 'foo%'
-                  }
-                },
-                offset: 10,
-                limit: 2
-              });
-              console.log(count);
-              console.log(rows);
-
-
-
-
-
-
+            DadosJson.findAll({
+                where: sequelize.where(sequelize.fn('DATE', sequelize.col('dateField')), new Date().toISOString().slice(0,10))
+               });
             return res.status(200).json(dadosJson);
         } catch (error) {
             return res.status(500).json({ error: error.message });
