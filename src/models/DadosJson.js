@@ -23,6 +23,7 @@ class DadosJson extends Model {
         this.belongsTo(models.Sensor, {
             foreignKey: "idSensor",
             as: "Sensor",
+            primaryKey: true,
         });
     }
 }
