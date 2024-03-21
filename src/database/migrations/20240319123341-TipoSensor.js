@@ -5,7 +5,7 @@ module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable("TipoSensor", {
             numSensor: {
-                type: Sequelize.CHAR(3),
+                type: Sequelize.SMALLINT,
                 primaryKey: true,
                 allowNull: false,
                 autoIncrement: false,
