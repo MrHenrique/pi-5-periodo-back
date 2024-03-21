@@ -7,9 +7,9 @@ module.exports = {
         // #swagger.tags = ['DadosJson']
         // #swagger.summary = "Mostrar todos os dados"
         try {
-            const dadosJson = await DadosJson.aggregate('valorDados', 'average', {where: 
-            {}});
-            DadosJson.findAll({
+            // const dadosJson = await DadosJson.aggregate('valorDados', 'average', {where: 
+            // {}});
+                const dadosJson =await DadosJson.findAll({
                 where: sequelize.where(sequelize.fn('DATE', sequelize.col('dateField')), new Date().toISOString().slice(0,10))
                });
             return res.status(200).json(dadosJson);
