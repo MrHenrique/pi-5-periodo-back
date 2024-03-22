@@ -11,12 +11,14 @@ module.exports = {
                 allowNull: false,
             },
             numSensor: {
-              type: Sequelize.CHAR(3),
+              type: Sequelize.SMALLINT,
               allowNull: false,
               references: {
                 model: "TipoSensor",
                 key: "numSensor",
               },
+              onUpdate: "CASCADE",
+              onUpdate: "CASCADE",
             },
             idArea: {
               type: Sequelize.INTEGER,
@@ -24,16 +26,6 @@ module.exports = {
               references: {
                 model: "Area",
                 key: "idArea",
-              },
-              onUpdate: "CASCADE",
-              onDelete: "CASCADE",
-            },
-            idFazenda: {
-              type: Sequelize.INTEGER,
-              allowNull: false,
-              references: {
-                model: "Area",
-                key: "idFazenda",
               },
               onUpdate: "CASCADE",
               onDelete: "CASCADE",

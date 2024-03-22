@@ -12,7 +12,6 @@ const DadosJson = require("../models/DadosJson");
 
 const connection = new Sequelize(dbConfig);
 
-DadosJson.init(connection);
 Login.init(connection);
 Fazenda.init(connection);
 Area.init(connection);
@@ -20,6 +19,8 @@ LocalizacaoFazenda.init(connection);
 LocalizacaoArea.init(connection);
 TipoSensor.init(connection);
 Sensor.init(connection);
+DadosJson.init(connection);
+
 
 Login.associate(connection.models);
 Fazenda.associate(connection.models);

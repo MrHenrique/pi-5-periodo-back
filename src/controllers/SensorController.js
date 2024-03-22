@@ -116,7 +116,7 @@ module.exports = {
     },
     
     //Excluir todos sensores
-    async delete(req, res) {
+    async deleteTudo(req, res) {
         // #swagger.tags = ["Sensor"]
         // #swagger.summary = "Excluir todos Sensores"
         try {

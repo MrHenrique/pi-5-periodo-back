@@ -59,7 +59,7 @@ module.exports = {
     },
 
     //Excluir Tudo
-    async delete(req, res) {
+    async deleteTudo(req, res) {
         // #swagger.tags = ["DadosJson"]
         // #swagger.summary = "Excluir todos dadosJson"
         try {

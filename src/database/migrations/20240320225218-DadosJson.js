@@ -1,7 +1,5 @@
 "use strict";
 
-const { sequelize } = require('../../models/Sensor');
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
@@ -13,7 +11,7 @@ module.exports = {
                 allowNull: false,
             },
             idSensor: {
-              type: Sequelize.INTEGER,
+              type: Sequelize.SMALLINT,
               primaryKey: true,
               allowNull: false,
               references: {

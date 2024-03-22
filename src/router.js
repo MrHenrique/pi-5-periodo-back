@@ -76,12 +76,12 @@ routes.get("/sensor/:idSensor", SensorController.show);
 routes.post("/sensor", SensorController.create);
 routes.patch("/sensor/:idSensor", SensorController.update);
 routes.delete("/sensor/:idSensor", SensorController.delete);
-routes.delete("/sensor", SensorController.delete);
+routes.delete("/sensor", SensorController.deleteTudo);
 
 //rotas DadosJson
 routes.get("/dadosJson", DadosJsonController.showAll);
 routes.post("/dadosJson", DadosJsonController.create);
 routes.delete("/dadosJson/:idDadosJson", DadosJsonController.delete);
-routes.delete("/dadosJson", DadosJsonController.delete);
+routes.delete("/dadosJson", DadosJsonController.deleteTudo);
 
 module.exports = routes;
