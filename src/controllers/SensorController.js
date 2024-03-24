@@ -1,5 +1,3 @@
-const TipoSensor = require("../models/TipoSensor");
-const Area = require("../models/Area");
 const Sensor = require("../models/Sensor");
 
 module.exports = {
@@ -9,7 +7,7 @@ module.exports = {
         // #swagger.summary = "Mostrar todos os sensores"
         try {
             const sensores = await Sensor.findAll();
-            return res.status(200).json(areas);
+            return res.status(200).json(sensores);
         } catch (error) {
             return res.status(500).json({ error: error.message });
         }
@@ -27,7 +25,7 @@ module.exports = {
                 return res.status(404).json({ error: "Sensor não encontrada." });
             }
 
-            return res.status(200).json(area);
+            return res.status(200).json(sensor);
         } catch (error) {
             return res.status(500).json({ error: error.message });
         }
@@ -38,57 +36,15 @@ module.exports = {
         // #swagger.tags = ['Sensor']
         // #swagger.summary = "Criar um novo sensor"
         try {
-            const { idSensor } = req.params;
             const { numSensor, idArea, idFazenda } = req.body;
 
-            const sensor = await Sensor.findByPk(idSensor);
-
-            if (!sensor) {
-                return res
-                    .status(404)
-                    .json({ error: "Sensor não encontrada." });
-            }
-
-            const sensorExistente = await Sensor.findOne({
-                where: {
-                    numSensor,
-                    idArea,
-                    idFazenda,
-                },
-            });
-
-            if (sensorExistente) {
-                return res.status(400).json({
-                    error: "Já existe um sensor com esses dados.",
-                });
-            }
-
-            const TipoSensorExistente = await Sensor.findOne({
-                where: { numSensor },
-            });
-
-            if (TipoSensorExistente) {
-                return res.status(400).json({
-                    error: "Já esiste um Sensor com esse tipo .",
-                });
-            }
-            const AreaExistente = await Sensor.findOne({
-                where: { idArea, idFazenda },
-            });
-
-            if (AreaExistente) {
-                return res.status(400).json({
-                    error: "Já esiste um Sensor com essa area .",
-                });
-            }
-
-            const sensorA = await Sensor.create({
+            const sensor = await Sensor.create({
                 numSensor,
                 idArea,
                 idFazenda,
             });
 
-            return res.status(201).json(sensorA);
+            return res.status(201).json(sensor);
         } catch (error) {
             return res.status(500).json({ error: error.message });
         }
@@ -158,4 +114,19 @@ module.exports = {
             return res.status(500).json({ error: error.message });
         }
     },
+    
+    //Excluir todos sensores
+    async deleteTudo(req, res) {
+        // #swagger.tags = ["Sensor"]
+        // #swagger.summary = "Excluir todos Sensores"
+        try {
+            await Sensor.destroy();
+
+            return res.status(200).json({
+                message: "Sensor excluído com sucesso.",
+            });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
 };

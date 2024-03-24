@@ -5,9 +5,9 @@ class TipoSensor extends Model {
         super.init(
             {
                 numSensor: {
-                    type: DataTypes.CHAR(3),
+                    type: DataTypes.SMALLINT,
                     primaryKey: true,
-                    autoIncrement: true,
+                    autoIncrement: false,
                 },
                 nomeTipoSensor: DataTypes.STRING,
                 obs: DataTypes.STRING,

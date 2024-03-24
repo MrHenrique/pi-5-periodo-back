@@ -3,32 +3,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable("Sensor", {
-            idSensor: {
-                type: Sequelize.SMALLINT,
+        await queryInterface.createTable("DadosJson", {
+            idDadosJson: {
+                type: Sequelize.BIGINT,
                 primaryKey: true,
-                autoIncrement: true,
+                autoIncrement: false,
                 allowNull: false,
             },
-            numSensor: {
+            idSensor: {
               type: Sequelize.SMALLINT,
+              primaryKey: true,
               allowNull: false,
               references: {
-                model: "TipoSensor",
-                key: "numSensor",
-              },
-              onUpdate: "CASCADE",
-              onUpdate: "CASCADE",
-            },
-            idArea: {
-              type: Sequelize.INTEGER,
-              allowNull: false,
-              references: {
-                model: "Area",
-                key: "idArea",
+                model: "Sensor",
+                key: "idSensor",
               },
               onUpdate: "CASCADE",
               onDelete: "CASCADE",
+            },
+            valorDados: {
+              type: Sequelize.STRING,
+              allowNull: true,
+
             },
             createdAt: {
                 type: Sequelize.DATE,
@@ -42,6 +38,6 @@ module.exports = {
     },
 
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable("Sensor");
+        await queryInterface.dropTable("DadosJson");
     },
 };

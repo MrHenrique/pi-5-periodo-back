@@ -13,7 +13,7 @@ module.exports = {
         }
     },
 
-    //Mostrar um Sensor pelo seu numero
+    //Mostrar um TipoSensor pelo seu numero
     async show(req, res) {
         // #swagger.tags = ['TipoSensor']
         // #swagger.summary = "Mostrar um Tipo Sensor pelo seu numero"
@@ -35,22 +35,12 @@ module.exports = {
         }
     },
 
-    //Criar uma Sensor
+    //Criar uma TipoSensor
     async create(req, res) {
         // #swagger.tags = ['TipoSensor']
         // #swagger.summary = "Criar um novo Tipo Sensor"
         try {
             const { nomeTipoSensor, obs } = req.body;
-
-            const tipoSensorExistente = await TipoSensor.findOne({
-                where: { nomeTipoSensor, obs },
-            });
-
-            if (tipoSensorExistente) {
-                return res.status(400).json({
-                    error: "Já existe um Sensor desse tipo.",
-                });
-            }
 
             const TipoSensor = await TipoSensor.create({
                 nomeTipoSensor,
@@ -90,12 +80,7 @@ module.exports = {
             if (Sensor.changed()) {
                 await Sensor.save();
             } else {
-                return res
-                    .status(500)
-                    .json({
-                        message:
-                            "TipoSensor não alterado, não houve mudança de valores.",
-                    });
+                return res.status(500).json({message:"TipoSensor não alterado, não houve mudança de valores."});
             }
 
             return res.status(200).json({
