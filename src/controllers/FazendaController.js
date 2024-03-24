@@ -53,20 +53,43 @@ module.exports = {
                 return res.status(404).json({ error: "Login não encontrado." });
             }
 
+            const fazendaExistente = await Fazenda.findOne({
+                where: { nomeFazenda },
+            });
+
             const localizacaoFazendaExistente =
                 await LocalizacaoFazenda.findOne({
                     where: { latitude, longitude },
                 });
 
             if (localizacaoFazendaExistente) {
-                return res.status(400).json({
-                    error: "Já essiste uma fazenda cadastrada com essa localização.",
+                const fazendaAssociada = await Fazenda.findOne({
+                    where: {
+                        idLocalizacaoFazenda:
+                            localizacaoFazendaExistente.idLocalizacaoFazenda,
+                    },
                 });
-            }
+                if (fazendaAssociada) {
+                    return res.status(400).json({
+                        error: "Já existe uma fazenda cadastrada com essa localização.",
+                    });
+                } else {
+                    if (fazendaExistente) {
+                        return res.status(400).json({
+                            error: "Já essiste uma fazenda cadastrada com esse nome.",
+                        });
+                    }
 
-            const fazendaExistente = await Fazenda.findOne({
-                where: { nomeFazenda },
-            });
+                    const fazenda = await Fazenda.create({
+                        nomeFazenda,
+                        idLocalizacaoFazenda:
+                            localizacaoFazendaExistente.idLocalizacaoFazenda,
+                    });
+
+                    await login.addFazenda(fazenda);
+                    return res.status(201).json(fazenda);
+                }
+            }
 
             if (fazendaExistente) {
                 return res.status(400).json({

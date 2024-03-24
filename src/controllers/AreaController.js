@@ -49,19 +49,43 @@ module.exports = {
                     .json({ error: "Fazenda não encontrada." });
             }
 
+            const areaExistente = await Area.findOne({
+                where: { nomeArea },
+            });
+
             const localizacaoAreaExistente = await LocalizacaoArea.findOne({
                 where: { latitude, longitude },
             });
 
             if (localizacaoAreaExistente) {
-                return res.status(400).json({
-                    error: "Já essiste uma área cadastrado com essa localização.",
+                const areaAssociada = await Area.findOne({
+                    where: {
+                        idLocalizacaoArea:
+                            localizacaoAreaExistente.idLocalizacaoArea,
+                    },
                 });
-            }
+                if (areaAssociada) {
+                    return res.status(400).json({
+                        error: "Já existe uma área cadastrada com essa localização.",
+                    });
+                } else {
+                    if (areaExistente) {
+                        return res.status(400).json({
+                            error: "Já essiste uma área cadastrada com esse nome nesta fazenda.",
+                        });
+                    }
 
-            const areaExistente = await Area.findOne({
-                where: { nomeArea },
-            });
+                    const area = await Area.create({
+                        nomeArea,
+                        tamanho,
+                        idFazenda,
+                        idLocalizacaoArea:
+                            localizacaoAreaExistente.idLocalizacaoArea,
+                    });
+
+                    return res.status(201).json(area);
+                }
+            }
 
             if (areaExistente) {
                 return res.status(400).json({
