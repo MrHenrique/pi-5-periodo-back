@@ -45,7 +45,7 @@ module.exports = {
         // #swagger.summary = "Criar uma nova fazenda"
         try {
             const { idLogin } = req.params;
-            const { nomeFazenda, idLocalizacaoFazenda } = req.body;
+            const { nomeFazenda, latitude, longitude } = req.body;
 
             const login = await Login.findByPk(idLogin);
 
@@ -53,9 +53,10 @@ module.exports = {
                 return res.status(404).json({ error: "Login não encontrado." });
             }
 
-            const localizacaoFazendaExistente = await Fazenda.findOne({
-                where: { idLocalizacaoFazenda },
-            });
+            const localizacaoFazendaExistente =
+                await LocalizacaoFazenda.findOne({
+                    where: { latitude, longitude },
+                });
 
             if (localizacaoFazendaExistente) {
                 return res.status(400).json({
@@ -63,24 +64,31 @@ module.exports = {
                 });
             }
 
-            let fazenda = await Fazenda.findOne({
+            const fazendaExistente = await Fazenda.findOne({
                 where: { nomeFazenda },
             });
 
-            if (!fazenda) {
-                fazenda = await Fazenda.create({
-                    nomeFazenda,
-                    idLocalizacaoFazenda,
+            if (fazendaExistente) {
+                return res.status(400).json({
+                    error: "Já essiste uma fazenda cadastrada com esse nome.",
                 });
-            } else {
-                return res
-                    .status(400)
-                    .json({ error: "Já existe uma fazenda com esse nome." });
             }
 
-            await login.addFazenda(fazenda);
+            if (!fazendaExistente && !localizacaoFazendaExistente) {
+                const localizacaoFazenda = await LocalizacaoFazenda.create({
+                    latitude,
+                    longitude,
+                });
 
-            return res.status(201).json(fazenda);
+                const fazenda = await Fazenda.create({
+                    nomeFazenda,
+                    idLocalizacaoFazenda:
+                        localizacaoFazenda.idLocalizacaoFazenda,
+                });
+
+                await login.addFazenda(fazenda);
+                return res.status(201).json(fazenda);
+            }
         } catch (error) {
             return res.status(500).json({ error: error.message });
         }
