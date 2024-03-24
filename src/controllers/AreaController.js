@@ -1,5 +1,6 @@
 const Fazenda = require("../models/Fazenda");
 const Area = require("../models/Area");
+const LocalizacaoArea = require("../models/LocalizacaoArea");
 
 module.exports = {
     //Mostrar todos as areas
@@ -38,7 +39,7 @@ module.exports = {
         // #swagger.summary = "Criar uma nova área"
         try {
             const { idFazenda } = req.params;
-            const { nomeArea, tamanho, idLocalizacaoArea } = req.body;
+            const { nomeArea, tamanho, latitude, longitude } = req.body;
 
             const fazenda = await Fazenda.findByPk(idFazenda);
 
@@ -49,11 +50,42 @@ module.exports = {
             }
 
             const areaExistente = await Area.findOne({
-                where: {
-                    nomeArea,
-                    idFazenda,
-                },
+                where: { nomeArea },
             });
+
+            const localizacaoAreaExistente = await LocalizacaoArea.findOne({
+                where: { latitude, longitude },
+            });
+
+            if (localizacaoAreaExistente) {
+                const areaAssociada = await Area.findOne({
+                    where: {
+                        idLocalizacaoArea:
+                            localizacaoAreaExistente.idLocalizacaoArea,
+                    },
+                });
+                if (areaAssociada) {
+                    return res.status(400).json({
+                        error: "Já existe uma área cadastrada com essa localização.",
+                    });
+                } else {
+                    if (areaExistente) {
+                        return res.status(400).json({
+                            error: "Já essiste uma área cadastrada com esse nome nesta fazenda.",
+                        });
+                    }
+
+                    const area = await Area.create({
+                        nomeArea,
+                        tamanho,
+                        idFazenda,
+                        idLocalizacaoArea:
+                            localizacaoAreaExistente.idLocalizacaoArea,
+                    });
+
+                    return res.status(201).json(area);
+                }
+            }
 
             if (areaExistente) {
                 return res.status(400).json({
@@ -61,24 +93,21 @@ module.exports = {
                 });
             }
 
-            const localizacaoAreaExistente = await Area.findOne({
-                where: { idLocalizacaoArea },
-            });
-
-            if (localizacaoAreaExistente) {
-                return res.status(400).json({
-                    error: "Já essiste uma área cadastrado com essa localização.",
+            if (!areaExistente && !localizacaoAreaExistente) {
+                const localizacaoArea = await LocalizacaoArea.create({
+                    latitude,
+                    longitude,
                 });
+
+                const area = await Area.create({
+                    nomeArea,
+                    tamanho,
+                    idFazenda,
+                    idLocalizacaoArea: localizacaoArea.idLocalizacaoArea,
+                });
+
+                return res.status(201).json(area);
             }
-
-            const area = await Area.create({
-                nomeArea,
-                tamanho,
-                idFazenda,
-                idLocalizacaoArea,
-            });
-
-            return res.status(201).json(area);
         } catch (error) {
             return res.status(500).json({ error: error.message });
         }
@@ -95,11 +124,9 @@ module.exports = {
             const area = await Area.findByPk(idArea);
 
             if (!area) {
-                return res
-                    .status(404)
-                    .json({
-                        error: "Área não encontrada, não houve mudança de valores.",
-                    });
+                return res.status(404).json({
+                    error: "Área não encontrada, não houve mudança de valores.",
+                });
             }
 
             if (nomeArea && nomeArea !== area.nomeArea) {

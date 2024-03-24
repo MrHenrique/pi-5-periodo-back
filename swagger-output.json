@@ -329,7 +329,10 @@
                   "nomeFazenda": {
                     "example": "any"
                   },
-                  "idLocalizacaoFazenda": {
+                  "latitude": {
+                    "example": "any"
+                  },
+                  "longitude": {
                     "example": "any"
                   }
                 }
@@ -505,7 +508,10 @@
                   "tamanho": {
                     "example": "any"
                   },
-                  "idLocalizacaoArea": {
+                  "latitude": {
+                    "example": "any"
+                  },
+                  "longitude": {
                     "example": "any"
                   }
                 }
