@@ -1,4 +1,6 @@
+const { Sequelize } = require("sequelize");
 const DadosJson = require("../models/DadosJson");
+
 
 module.exports = {
     //Mostrar todos os dados
@@ -9,7 +11,7 @@ module.exports = {
             // const dadosJson = await DadosJson.aggregate('valorDados', 'average', {where: 
             // {}});
                 const dadosJson =await DadosJson.findAll({
-                where: sequelize.where(sequelize.fn('DATE', sequelize.col('dateField')), new Date().toISOString().slice(0,10))
+                where: Sequelize.where(Sequelize.fn('DATE', Sequelize.col('dateField')), new Date().toISOString().slice(0,10))
                });
             return res.status(200).json(dadosJson);
         } catch (error) {
@@ -67,7 +69,7 @@ module.exports = {
             await DadosJson.destroy();
 
             return res.status(200).json({
-                message: "Tudo Excluirdo com sucesso.",
+                message: "Tudo Excluido com sucesso.",
             });
         } catch (error) {
             return res.status(500).json({ error: error.message });
