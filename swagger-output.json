@@ -347,7 +347,7 @@
         "tags": [
           "Area"
         ],
-        "summary": "Mostrar todas as áreas",
+        "summary": "Mostrar todas as ",
         "description": "",
         "responses": {
           "200": {
@@ -1038,14 +1038,11 @@
         "tags": [
           "Sensor"
         ],
-        "summary": "Excluir um sensor pelo id",
+        "summary": "Excluir todos Sensores",
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1211,14 +1208,11 @@
         "tags": [
           "DadosJson"
         ],
-        "summary": "Excluir um dadoJson pelo id",
+        "summary": "Excluir todos dadosJson",
         "description": "",
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"

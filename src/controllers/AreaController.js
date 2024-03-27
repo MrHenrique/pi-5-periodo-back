@@ -6,7 +6,7 @@ module.exports = {
     //Mostrar todos as areas
     async showAll(req, res) {
         // #swagger.tags = ['Area']
-        // #swagger.summary = "Mostrar todas as áreas"
+        // #swagger.summary = "Mostrar todas as "
         try {
             const areas = await Area.findAll();
             return res.status(200).json(areas);
